@@ -29,6 +29,10 @@ const filteredTasks = computed(() => {
   }
 })
 
+const removeCompleted = () => {
+  tasks.value = tasks.value.filter(task => !task.completed)
+}
+
 </script>
 
 <template>
@@ -39,6 +43,7 @@ const filteredTasks = computed(() => {
       <button @click="filter = 'all'">All</button>
       <button @click="filter = 'completed'">Completed</button>
     </div>
+    <button @click="removeCompleted">Remove Completed</button>
     <ul>
       <li v-for="task in filteredTasks" :key="task.id">
         <input type="checkbox" v-model="task.completed" />
