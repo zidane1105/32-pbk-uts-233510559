@@ -5,7 +5,7 @@ const tasks = ref([])
 const input = ref('')
 
 const addTask = () => {
-  if (input.value){
+  if (input.value) {
 
     tasks.value.push({
       id: tasks.value.length + 1,
@@ -13,9 +13,13 @@ const addTask = () => {
       completed: false
     })
     input.value = ''
-    console.log(tasks.value)
   }
 }
+
+const removeTask = (id) => {
+  tasks.value = tasks.value.filter(task => task.id !== id)
+}
+
 </script>
 
 <template>
@@ -25,6 +29,7 @@ const addTask = () => {
     <ul>
       <li v-for="task in tasks" :key="task.id">
         {{ task.name }}
+        <button @click="removeTask(task.id)">Remove</button>
       </li>
     </ul>
   </div>
