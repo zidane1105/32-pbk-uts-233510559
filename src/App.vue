@@ -1,8 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const tasks = ref([])
 const input = ref('')
+const filter = ref('all')
 
 const addTask = () => {
   if (input.value) {
@@ -20,14 +21,26 @@ const removeTask = (id) => {
   tasks.value = tasks.value.filter(task => task.id !== id)
 }
 
+const filteredTasks = computed(() => {
+  if (filter.value === 'all') {
+    return tasks.value
+  } else if (filter.value === 'completed') {
+    return tasks.value.filter(task => task.completed)
+  }
+})
+
 </script>
 
 <template>
   <div>
     <input type="text" v-model="input" @keyup.enter="addTask" />
     <button @click="addTask">Add Task</button>
+    <div>
+      <button @click="filter = 'all'">All</button>
+      <button @click="filter = 'completed'">Completed</button>
+    </div>
     <ul>
-      <li v-for="task in tasks" :key="task.id">
+      <li v-for="task in filteredTasks" :key="task.id">
         <input type="checkbox" v-model="task.completed" />
         {{ task.name }}
         <button @click="removeTask(task.id)">Remove</button>
