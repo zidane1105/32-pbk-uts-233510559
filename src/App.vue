@@ -28,6 +28,7 @@ const removeTask = (id) => {
     <button @click="addTask">Add Task</button>
     <ul>
       <li v-for="task in tasks" :key="task.id">
+        <input type="checkbox" v-model="task.completed" />
         {{ task.name }}
         <button @click="removeTask(task.id)">Remove</button>
       </li>
