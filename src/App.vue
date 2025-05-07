@@ -22,6 +22,11 @@ const addTask = () => {
   <div>
     <input type="text" v-model="input" @keyup.enter="addTask" />
     <button @click="addTask">Add Task</button>
+    <ul>
+      <li v-for="task in tasks" :key="task.id">
+        {{ task.name }}
+      </li>
+    </ul>
   </div>
 </template>
 
